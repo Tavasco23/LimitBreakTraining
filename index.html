@@ -217,31 +217,49 @@
   </script>
 
   <script>
-    function calculateCost() {
-      const membership = document.getElementById("membership").value;
-      const duration = document.getElementById("days").value;
-      
-      
-      let total = 0;
-      let months = 0;
+   function calculateCost() {
+  const membership = document.getElementById("membership").value;
+  const duration = document.getElementById("days").value;
 
-    
-      if (duration === "30") months = 1500;
-      else if (duration === "90") months = 4500;
-      else if (duration === "120") months = 9000;
-      else if (duration === "365") months = 18000 ;
+  let total = 0;
+  let months = 0;
 
-    
-      let monthlyPrice = 0;
-      if (membership === "Regular") monthlyPrice = 1500;
-      else if (membership === "Premium") monthlyPrice = 3500;
 
-      
-      total = monthlyPrice + months;
+  const durationOptions = [
+    { days: "30", price: 1500 },
+    { days: "90", price: 4500 },
+    { days: "120", price: 9000 },
+    { days: "365", price: 18000 },
+  ];
 
-      document.getElementById("costOutput").textContent = `Total Cost: ₱${total.toLocaleString()}.00`;
-      document.getElementById("totalCost").value = total;
+  for (let i = 0; i < durationOptions.length; i++) {
+    if (duration === durationOptions[i].days) {
+      months = durationOptions[i].price;
+      break;
     }
+  }
+
+  
+  const membershipOptions = [
+    { type: "Regular", price: 1500 },
+    { type: "Premium", price: 3500 },
+  ];
+
+  let monthlyPrice = 0;
+  for (let i = 0; i < membershipOptions.length; i++) {
+    if (membership === membershipOptions[i].type) {
+      monthlyPrice = membershipOptions[i].price;
+      break;
+    }
+  }
+
+  total = monthlyPrice + months;
+
+  document.getElementById("costOutput").textContent = `Total Cost: ₱${total.toLocaleString()}.00`;
+  document.getElementById("totalCost").value = total;
+}
+
+    
   </script>
 
 </body>
