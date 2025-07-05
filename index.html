@@ -152,7 +152,7 @@
     
 
       <div class="cost" id="costOutput">Total Cost: ₱0.00</div>
-      <input type="hidden" id="totalCost" name="totalCost" />
+      <input type="hidden" id="totalCost" name="totalCost" value="0" />
       <button type="submit">Register</button>
     </form>
 
@@ -198,7 +198,7 @@
   </div>
 
   <script>
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwO_duNAOUmh1qS85YcjofNO89BvxwzscC1sU7oiHjSOM_Zc8D6Jm1TWJWrhWPokQhO/exec';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzgsQIv1AH44UQmpBTPrvT1gz3JKA6uJJKdYLqvZcLKXlqdgXZ80jJiEjkPwrlQxWDj/exec';
     const form = document.getElementById('googleForm');
 
     form.addEventListener('submit', e => {
@@ -218,6 +218,7 @@
       const membership = document.getElementById("membership").value;
       const duration = document.getElementById("days").value;
       
+      
       let total = 0;
       let months = 0;
 
@@ -236,6 +237,7 @@
       total = monthlyPrice + months;
 
       document.getElementById("costOutput").textContent = `Total Cost: ₱${total.toLocaleString()}.00`;
+      document.getElementById("totalCost").value = total;
     }
   </script>
 
