@@ -65,15 +65,17 @@
     button {
       width: 103%;
       padding: 10px;
-      background-color: #28a745;
+      background-color: #0a0a0a;
       color: white;
       font-size: 16px;
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    }
+      
+    }ss
     button:hover {
-      background-color: #218838;
+      background-color: #333;
+      
     }
     .total, .cost {
       font-weight: bold;
@@ -111,8 +113,33 @@
      
     }
 
-    
-   
+
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+  #printSection, #printSection * {
+    visibility: visible !important;
+  }
+  #printSection {
+    position: absolute;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: #fff;
+    z-index: 9999;
+    display: block !important;
+  }
+}
+
+.print-receipt-info {
+  margin-top: 30px;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+.print-recipient {
+  margin-bottom: 20px;
+}
+  
   
   </style>
 </head>
@@ -159,6 +186,7 @@
       <button type="submit">Register</button>
     </form>
 
+
     <!-- Table Regular Membership Promo Pricing -->
     <table>
       <caption>Regular Membership Promo Pricing</caption>
@@ -195,8 +223,20 @@
         <tr><td>Premium</td><td>12 Months</td><td>₱21,500</td><td>Lifetime access + unlimited guest passes + monthly massage + full merch pack</td></tr> 
       </tbody>
     </table>
+
+
+    <!-- Link -->
     <a href="https://www.facebook.com/">Facebook</a>
       <a href="https://www.instagram.com/">Instagram</a>
+
+   <!--Print-->
+    <button type="printButton" onclick="printReceipt()">Print</button>
+    <div id="printSection" style="display:none; text-align:center;">
+      <img src="garou.jpg" style="width:120px; height:120px; border-radius:50%; margin-bottom:20px;" alt="Logo">
+      <h2>Limit Break Training</h2>
+      <div id="printTotal" class="print-receipt-info">
+    </div>
+    </div>
    
   </div>
 
@@ -259,7 +299,27 @@
   document.getElementById("totalCost").value = total;
 }
 
-    
+//Print function
+
+function printReceipt() {
+
+  const firstName = document.getElementById("firstName").value || "";
+  const lastName = document.getElementById("lastName").value || "";
+  const total = document.getElementById("costOutput").textContent || "Total Cost: ₱0.00";
+
+
+  document.getElementById("printTotal").innerHTML = `
+    <div class="print-recipient">Recipient: <b>${firstName} ${lastName}</b></div>
+    <div class="print-total">${total}</div>
+  `;
+
+  const printSection = document.getElementById("printSection");
+  printSection.style.display = "block";
+
+
+  window.print();
+  printSection.style.display = "none";
+}
   </script>
 
 </body>
